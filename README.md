@@ -20,7 +20,7 @@ pip install direct-speech-extractor-ru
 – А вот и я! – говорит он, входя к Андрею Ефимычу. – Здравствуйте, мой дорогой! Небось я уже надоел вам, а?
 – Напротив, очень рад, – отвечает ему доктор. – Я всегда рад вам."""
 ```
-In order to extract all the quotes, use _direct_spech()_ method:
+In order to extract all the quotes, use the _direct_spech()_ method:
 ```python
 >>> extract_direct = Extractor(text)
 >>> extracted = extract_direct.direct_speech()
