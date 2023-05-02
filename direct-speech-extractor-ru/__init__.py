@@ -1,1 +1,1 @@
-from .main import DialogueExtract
+from .main import Extractor
