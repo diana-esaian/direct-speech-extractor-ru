@@ -5,15 +5,15 @@ def long_desc():
         return f.read()
 
 setup(
-    name="dialogue-extractor-ru",
+    name="direct-speech-extractor-ru",
     version="0.1.0",
     author="Diana Esaian",
     author_email="diana.esaian@gmail.com",
     description="Direct speech extractor for texts in Russian",
     long_description=long_desc(),
     long_description_content_type="text/markdown",
-    packages=['dialogue-extractor-ru'],
-    url="https://github.com/diana-esaian/dialogue-extractor-ru",
+    packages=['direct-speech-extractor-ru'],
+    url="https://github.com/diana-esaian/direct-speech-extractor-ru",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
