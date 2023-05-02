@@ -1,63 +1,40 @@
-# Dialogue Extractor
-> Python package for extracting direct speech from Russian texts 
+# Direct Speech Extractor
+> Python package for extracting direct speech from texts in Russian
 
-Returned attributes for extracted list of remarks:
+Returned attributes for the list of extracted quotes:
 
 -   `text_wordcount` - word count of the whole text 
--   `dialogues_wordcount` - word count of all the extracted dialogues 
--   `ratio` - ratio of dialogues to the whole text (_dialogues_wordcount to text_wordcount_)
+-   `direct_speech_wordcount` - word count of all the extracted quotes 
+-   `ratio` - ratio of the extracted quotes to the whole text (_direct_speech_wordcount to text_wordcount_)
 
 ## Installation
-1. Install the package using pip:
+Install the package using pip:
 ```sh
-pip install moscow-toponyms==0.1.0
-```
-2. Download _ru_core_news_sm_
-```sh
-pip install https://github.com/explosion/spacy-models/releases/download/ru_core_news_sm-3.1.0/ru_core_news_sm-3.1.0.tar.gz
-```
-
-## Quick start
-```python
->>> from moscow_toponyms import QuickExtract
->>> text = "Однажды весною, в час небывало жаркого заката, в Москве, на Патриарших прудах, появились два гражданина."
->>> toponyms = QuickExtract(text)
->>> toponyms.extract()
-[{'toponym': 'Патриарших прудах',
-  'lemmatized_toponym': 'Патриаршие пруды',
-  'start_char': 60,
-  'stop_char': 77}]
+pip install direct-speech-extractor-ru
 ```
 
 ## Usage
 ```python
->>> from moscow_toponyms import ExtractMosToponyms
->>> text = "Однажды весною, в час небывало жаркого заката, в Москве, на Патриарших прудах, появились два гражданина."
->>> extract_toponyms = ExtractMosToponyms(text)
+>>> from direct-speech-extractor-ru import Extractor
+>>> text = """Он добр и чувствителен, но вспыльчив. Когда на почте кто-нибудь из посетителей протестует, не соглашается или просто начинает рассуждать, то Михаил Аверьяныч багровеет, трясется всем телом и кричит громовым голосом: «Замолчать!», так что за почтовым отделением давно уже установилась репутация учреждения, в котором страшно бывать. Михаил Аверьяныч уважает и любит Андрея Ефимыча за образованность и благородство души, к прочим же обывателям относится свысока, как к своим подчиненным.
+– А вот и я! – говорит он, входя к Андрею Ефимычу. – Здравствуйте, мой дорогой! Небось я уже надоел вам, а?
+– Напротив, очень рад, – отвечает ему доктор. – Я всегда рад вам."""
 ```
-Using SpaCy extract toponyms and their position in a text, lemmatize extracted toponyms using PyMorphy2:
+In order to extract all the quotes, use _direct_spech()_ method:
 ```python
->>> spacy_extracted = extract_toponyms.spacy_extract()
->>> print(spacy_extracted)
-({51: 'смоленский площадь'}, {0: 'саша панкратов'})
->>> spacy_dict = spacy_extracted[0]
->>> spacy_names = spacy_extracted[1]
+>>> extract_direct = Extractor(text)
+>>> extracted = extract_direct.direct_speech()
+>>> extracted
+[' «Замолчать!»',
+ '– А вот и я!',
+ '– Здравствуйте, мой дорогой! Небось я уже надоел вам, а?',
+ '– Напротив, очень рад,',
+ '– Я всегда рад вам.']
 ```
-Using Natasha extract toponyms and their position in a text:
+In order to extract information about the word counts and the ratio, use the method _statistics()_:
 ```python
->>> natasha_extractor = extract_toponyms.natasha_extract()
->>> print(natasha_extractor)
-({51: ['Смоленской площади', 'Смоленская площадь', 69]}, {0: 'Саша Панкратов'})
->>> natasha_dict = natasha_extractor[0]
->>> natasha_names = natasha_extractor[1]
-``` 
-Add the extracted names to the existing black list for cleaner output:
-```python
->>> black_list = extract_toponyms.merging_blacklists(spacy_names, natasha_names)
-```
-Filter all extracted toponyms and return only Moscow toponyms in inflected and base forms, their start and end character indices
-``` python
->>> final_results = extract_toponyms.inner_merging_filtering(black_list, spacy_dict, natasha_dict)
->>> print(final_results)
-[{'toponym': 'Смоленской площади', 'lemmatized_toponym': 'Смоленская площадь', 'start_char': 51, 'stop_char': 69}]
+>>> extract_direct.statistics(extracted)
+{'text_wordcount': 97,
+ 'direct_speech_wordcount': 21,
+ 'ratio': 0.21649484536082475}
 ```
