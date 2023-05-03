@@ -15,7 +15,7 @@ class Extractor():
       
     dialogue = []
     for paragraph in all_paragraphs:
-      huge_replica_1 = re.findall('\n *[–|-][–|-]? *[А-Я].*?\n|\n *[–|-] *[A-Z].*?\n', paragraph)
+      huge_replica_1 = re.findall('\n *[–|-].*[А-Я].*?\n|\n *[–|-].*[A-Z].*?\n', paragraph)
       if len(huge_replica_1) != 0:
         for hugereplica in huge_replica_1:
           replicas_and_authors_1_2 = re.findall('[–|-][–|-].*?[(!)+|(?)+|.|,|...|…|..|!?|?!|?!?|!?!|!..|?..](?= *[–|-][–|-].*?[(!)+|(?)+|.|...|…|..|,|!?|?!|?!?|!?!|!..|?..])', hugereplica)
