@@ -6,7 +6,7 @@ def long_desc():
 
 setup(
     name="direct_speech_extractor_ru",
-    version="0.0.1",
+    version="0.0.2",
     author="Diana Esaian",
     author_email="diana.esaian@gmail.com",
     description="Direct speech extractor for texts in Russian",
